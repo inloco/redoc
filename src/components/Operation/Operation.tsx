@@ -17,6 +17,7 @@ import { RequestSamples } from '../RequestSamples/RequestSamples';
 import { ResponsesList } from '../Responses/ResponsesList';
 import { ResponseSamples } from '../ResponseSamples/ResponseSamples';
 import { SecurityRequirements } from '../SecurityRequirement/SecurityRequirement';
+import { TryIt } from '../TryIt/TryIt'
 
 const OperationRow = styled(Row)`
   backface-visibility: hidden;
@@ -35,7 +36,7 @@ export interface OperationProps {
 @observer
 export class Operation extends React.Component<OperationProps> {
   render() {
-    const { operation } = this.props;
+    const { operation, ...otherProps } = this.props;
 
     const { name: summary, description, deprecated, externalDocs, isWebhook } = operation;
     const hasDescription = !!(description || externalDocs);
@@ -66,7 +67,7 @@ export class Operation extends React.Component<OperationProps> {
               <CallbacksList callbacks={operation.callbacks} />
             </MiddlePanel>
             <DarkRightPanel>
-              {!options.pathInMiddlePanel && !isWebhook && <Endpoint operation={operation} />}
+              <TryIt {...otherProps} operation={operation} />
               <RequestSamples operation={operation} />
               <ResponseSamples operation={operation} />
               <CallbackSamples callbacks={operation.callbacks} />
