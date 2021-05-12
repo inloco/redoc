@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled from '../../styled-components';
 
 import { Endpoint } from '../Endpoint/Endpoint';
 
@@ -18,12 +18,11 @@ const TryItButtonWrapper = styled.div`
 `;
 
 
-export function TryIt({ operation, ...otherProps }) {
+export function TryIt(props) {
   const [tryItOpen, setTryItOpen] = React.useState(false)
+  const { operation, ...otherProps } = props
 
-  const TryItComponent = otherProps.tryItComponent
-
-  if (!TryItComponent) return <Endpoint operation={operation} />
+  if (!otherProps.tryItComponent) return <Endpoint operation={operation} />
 
   return (
     <>
@@ -35,7 +34,7 @@ export function TryIt({ operation, ...otherProps }) {
           <button onClick={() => setTryItOpen(true)}>Try it</button>
         </TryItButtonWrapper>}
       </TryItWrapper>
-      {tryItOpen && <TryItComponent operation={operation} onClose={() => setTryItOpen(false)} />}
+      {tryItOpen && otherProps.tryItComponent(operation, () => setTryItOpen(false))}
      </>
   );
 }
