@@ -106,7 +106,7 @@ class DemoApp extends React.Component<
         </Heading>
         <RedocStandalone
           specUrl={proxiedUrl}
-          tryItComponent={(operation, onClose) => <MyComponent operation={operation} onClose={onClose} />}
+          tryItComponent={(props) => <MyComponent {...props} />}
           options={{ scrollYOffset: 'nav', untrustedSpec: true }}
         />
       </>

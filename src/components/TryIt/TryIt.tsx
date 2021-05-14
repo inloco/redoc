@@ -17,6 +17,24 @@ const TryItButtonWrapper = styled.div`
   display: flex;
 `;
 
+const Button = styled.button`
+  border: 0;
+  background-color: #F0DFED;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0 16px;
+  color: #3D3E3F;
+
+  &:focus,
+  &:hover {
+    outline: none;
+    background-color: #FCF2FB;
+  }
+
+  &:active {
+    background-color: #FCF2FB;
+  }
+`
 
 export function TryIt(props) {
   const [tryItOpen, setTryItOpen] = React.useState(false)
@@ -31,10 +49,10 @@ export function TryIt(props) {
           <Endpoint operation={operation} />
         </EndpointWrapper>
         {!tryItOpen && <TryItButtonWrapper>
-          <button onClick={() => setTryItOpen(true)}>Try it</button>
+          <Button onClick={() => setTryItOpen(true)}>Try it</Button>
         </TryItButtonWrapper>}
       </TryItWrapper>
-      {tryItOpen && otherProps.tryItComponent(operation, () => setTryItOpen(false))}
+      {tryItOpen && otherProps.tryItComponent({ operation, onClose: () => setTryItOpen(false)})}
      </>
   );
 }
