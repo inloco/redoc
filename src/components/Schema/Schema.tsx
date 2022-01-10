@@ -63,18 +63,17 @@ export class Schema extends React.Component<Partial<SchemaProps>> {
       return <OneOfSchema schema={schema} {...this.props} />;
     }
 
-    switch (type) {
-      case 'object':
-        if (schema.fields?.length) {
-          return <ObjectSchema {...(this.props as any)} />;
-        }
-        break;
-      case 'array':
-        return <ArraySchema {...(this.props as any)} />;
+    const types = Array.isArray(type) ? type : [type];
+    if (types.includes('object')) {
+      if (schema.fields?.length) {
+        return <ObjectSchema {...(this.props as any)} />;
+      }
+    } else if (types.includes('array')) {
+      return <ArraySchema {...(this.props as any)} />;
     }
 
     // TODO: maybe adjust FieldDetails to accept schema
-    const field = ({
+    const field = {
       schema,
       name: '',
       required: false,
@@ -83,7 +82,7 @@ export class Schema extends React.Component<Partial<SchemaProps>> {
       deprecated: false,
       toggle: () => null,
       expanded: false,
-    } as any) as FieldModel; // cast needed for hot-loader to not fail
+    } as any as FieldModel; // cast needed for hot-loader to not fail
 
     return (
       <div>

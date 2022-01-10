@@ -16,6 +16,7 @@ export interface IMenuItem {
   id: string;
   absoluteIdx?: number;
   name: string;
+  sidebarLabel: string;
   description?: string;
   depth: number;
   active: boolean;
@@ -210,6 +211,7 @@ export class MenuStore {
 
     this.deactivate(this.activeItem);
     if (!item) {
+      this.activeItemIdx = -1;
       this.history.replace('', rewriteHistory);
       return;
     }

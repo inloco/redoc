@@ -1,7 +1,10 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { RedocNormalizedOptions, RedocRawOptions } from '../services/RedocNormalizedOptions';
+import {
+  argValueToBoolean,
+  RedocNormalizedOptions,
+  RedocRawOptions,
+} from '../services/RedocNormalizedOptions';
 import { ErrorBoundary } from './ErrorBoundary';
 import { Loading } from './Loading/Loading';
 import { Redoc } from './Redoc/Redoc';
@@ -15,47 +18,23 @@ export interface RedocStandaloneProps {
   tryItComponent?: React.FC;
 }
 
-export class RedocStandalone extends React.PureComponent<RedocStandaloneProps> {
-  static propTypes = {
-    spec: (props, _, componentName) => {
-      if (!props.spec && !props.specUrl) {
-        return new Error(
-          `One of props 'spec' or 'specUrl' was not specified in '${componentName}'.`,
-        );
-      }
-      return null;
-    },
+export const RedocStandalone = function (props: RedocStandaloneProps) {
+  const { spec, specUrl, options = {}, onLoaded, ...otherProps } = props;
+  const hideLoading = argValueToBoolean(options.hideLoading, false);
 
-    specUrl: (props, _, componentName) => {
-      if (!props.spec && !props.specUrl) {
-        return new Error(
-          `One of props 'spec' or 'specUrl' was not specified in '${componentName}'.`,
-        );
-      }
-      return null;
-    },
-    options: PropTypes.any,
-    onLoaded: PropTypes.any,
-  };
+  const normalizedOpts = new RedocNormalizedOptions(options);
 
-  render() {
-    const { spec, specUrl, options = {}, onLoaded, ...otherProps } = this.props;
-    const hideLoading = options.hideLoading !== undefined;
-
-    const normalizedOpts = new RedocNormalizedOptions(options);
-
-    return (
-      <ErrorBoundary>
-        <StoreBuilder spec={spec} specUrl={specUrl} options={options} onLoaded={onLoaded}>
-          {({ loading, store }) =>
-            !loading ? (
-              <Redoc {...otherProps} store={store!} />
-            ) : hideLoading ? null : (
-              <Loading color={normalizedOpts.theme.colors.primary.main} />
-            )
-          }
-        </StoreBuilder>
-      </ErrorBoundary>
-    );
-  }
-}
+  return (
+    <ErrorBoundary>
+      <StoreBuilder spec={spec} specUrl={specUrl} options={options} onLoaded={onLoaded}>
+        {({ loading, store }) =>
+          !loading ? (
+            <Redoc {...otherProps} store={store!} />
+          ) : hideLoading ? null : (
+            <Loading color={normalizedOpts.theme.colors.primary.main} />
+          )
+        }
+      </StoreBuilder>
+    </ErrorBoundary>
+  );
+};
