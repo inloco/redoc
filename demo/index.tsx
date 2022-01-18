@@ -111,11 +111,18 @@ class DemoApp extends React.Component<
         </Heading>
         <RedocStandalone
           specUrl={proxiedUrl}
+          tryItComponent={(props) => <MyComponent {...props} />}
           options={{ scrollYOffset: 'nav', untrustedSpec: true }}
         />
       </>
     );
   }
+}
+
+const MyComponent = (props) => {
+
+console.log({props})
+return <div style={{background: "red", width: 500, height: 500}}>AQUI</div>
 }
 
 /* ====== Styled components ====== */

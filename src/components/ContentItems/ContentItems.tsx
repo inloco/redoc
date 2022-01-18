@@ -18,7 +18,7 @@ export class ContentItems extends React.Component<{
       return null;
     }
     return items.map(item => {
-      return <ContentItem key={item.id} item={item} />;
+      return <ContentItem  {...this.props} key={item.id} item={item} />;
     });
   }
 }
@@ -42,7 +42,7 @@ export class ContentItem extends React.Component<ContentItemProps> {
         content = <SectionItem {...this.props} />;
         break;
       case 'operation':
-        content = <OperationItem item={item as any} />;
+        content = <OperationItem {...this.props} item={item as any} />;
         break;
       default:
         content = <SectionItem {...this.props} />;
@@ -55,7 +55,7 @@ export class ContentItem extends React.Component<ContentItemProps> {
             {content}
           </Section>
         )}
-        {item.items && <ContentItems items={item.items} />}
+        {item.items && <ContentItems {...this.props} items={item.items}  />}
       </>
     );
   }
@@ -97,6 +97,7 @@ export class OperationItem extends React.Component<{
   item: OperationModel;
 }> {
   render() {
-    return <Operation operation={this.props.item} />;
+    const { item, ...otherProps } = this.props
+    return <Operation operation={item} {...otherProps} />;
   }
 }
