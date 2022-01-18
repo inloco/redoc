@@ -8,7 +8,7 @@ import { RedocRawOptions } from '../../services/RedocNormalizedOptions';
 
 export interface EnumValuesProps {
   values: string[];
-  type: string;
+  type: string | string[];
 }
 
 export interface EnumValuesState {
@@ -59,7 +59,7 @@ export class EnumValues extends React.PureComponent<EnumValuesProps, EnumValuesS
           {values.length === 1 ? l('enumSingleValue') : l('enum')}:
         </FieldLabel>{' '}
         {displayedItems.map((value, idx) => {
-          const exampleValue = enumSkipQuotes ? value : JSON.stringify(value);
+          const exampleValue = enumSkipQuotes ? String(value) : JSON.stringify(value);
           return (
             <React.Fragment key={idx}>
               <ExampleValue>{exampleValue}</ExampleValue>{' '}
