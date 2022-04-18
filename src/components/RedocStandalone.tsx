@@ -16,6 +16,7 @@ export interface RedocStandaloneProps {
   options?: RedocRawOptions;
   onLoaded?: (e?: Error) => any;
   tryItComponent?: React.FC;
+  environmentSelector?: React.ReactNode;
 }
 
 export const RedocStandalone = function (props: RedocStandaloneProps) {

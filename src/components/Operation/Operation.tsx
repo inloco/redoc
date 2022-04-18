@@ -17,7 +17,7 @@ import { RequestSamples } from '../RequestSamples/RequestSamples';
 import { ResponsesList } from '../Responses/ResponsesList';
 import { ResponseSamples } from '../ResponseSamples/ResponseSamples';
 import { SecurityRequirements } from '../SecurityRequirement/SecurityRequirement';
-import { TryIt } from '../TryIt/TryIt'
+import { TryIt } from '../TryIt/TryIt';
 
 const Description = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.unit * 6}px;
@@ -25,12 +25,13 @@ const Description = styled.div`
 
 export interface OperationProps {
   operation: OperationModel;
+  environmentSelector?: React.ReactNode;
 }
 
 @observer
 export class Operation extends React.Component<OperationProps> {
   render() {
-    const { operation, ...otherProps } = this.props;
+    const { operation, environmentSelector, ...otherProps } = this.props;
 
     const { name: summary, description, deprecated, externalDocs, isWebhook } = operation;
     const hasDescription = !!(description || externalDocs);
@@ -61,6 +62,7 @@ export class Operation extends React.Component<OperationProps> {
               <CallbacksList callbacks={operation.callbacks} />
             </MiddlePanel>
             <DarkRightPanel>
+              {environmentSelector}
               <TryIt {...otherProps} operation={operation} />
               <RequestSamples operation={operation} />
               <ResponseSamples operation={operation} />
