@@ -25,13 +25,12 @@ const Description = styled.div`
 
 export interface OperationProps {
   operation: OperationModel;
-  environmentSelector?: React.ReactNode;
 }
 
 @observer
 export class Operation extends React.Component<OperationProps> {
   render() {
-    const { operation, environmentSelector, ...otherProps } = this.props;
+    const { operation, ...otherProps } = this.props;
 
     const { name: summary, description, deprecated, externalDocs, isWebhook } = operation;
     const hasDescription = !!(description || externalDocs);
@@ -62,7 +61,6 @@ export class Operation extends React.Component<OperationProps> {
               <CallbacksList callbacks={operation.callbacks} />
             </MiddlePanel>
             <DarkRightPanel>
-              {environmentSelector}
               <TryIt {...otherProps} operation={operation} />
               <RequestSamples operation={operation} />
               <ResponseSamples operation={operation} />
