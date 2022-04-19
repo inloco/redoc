@@ -58,11 +58,10 @@ export class Redoc extends React.Component<RedocProps> {
                 <SideMenu menu={menu} />
               </StickyResponsiveSidebar>
               <ApiContentWrap className="api-content">
-                {environmentSelector}
                 <ApiInfo store={store} />
                 <ContentItems {...this.props} items={menu.items as any} />
               </ApiContentWrap>
-              <BackgroundStub />
+              <BackgroundStub>{environmentSelector}</BackgroundStub>
             </RedocWrap>
           </OptionsProvider>
         </StoreProvider>
