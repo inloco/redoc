@@ -19,28 +19,28 @@ const TryItButtonWrapper = styled.div`
 
 const Button = styled.button`
   border: 0;
-  background-color: #F0DFED;
+  background-color: #f0dfed;
   font-weight: 500;
   border-radius: 8px;
   padding: 0 16px;
-  color: #3D3E3F;
+  color: #3d3e3f;
 
   &:focus,
   &:hover {
     outline: none;
-    background-color: #FCF2FB;
+    background-color: #fcf2fb;
   }
 
   &:active {
-    background-color: #FCF2FB;
+    background-color: #fcf2fb;
   }
-`
+`;
 
 export function TryIt(props) {
-  const [tryItOpen, setTryItOpen] = React.useState(false)
-  const { operation, ...otherProps } = props
+  const { operation, ...otherProps } = props;
+  const [tryItOpen, setTryItOpen] = React.useState(props?.tryItOpen === operation.id || false);
 
-  if (!otherProps.tryItComponent) return <Endpoint operation={operation} />
+  if (!otherProps.tryItComponent) return <Endpoint operation={operation} />;
 
   return (
     <>
@@ -48,11 +48,13 @@ export function TryIt(props) {
         <EndpointWrapper>
           <Endpoint operation={operation} />
         </EndpointWrapper>
-        {!tryItOpen && <TryItButtonWrapper>
-          <Button onClick={() => setTryItOpen(true)}>Try it</Button>
-        </TryItButtonWrapper>}
+        {!tryItOpen && (
+          <TryItButtonWrapper>
+            <Button onClick={() => setTryItOpen(true)}>Try it</Button>
+          </TryItButtonWrapper>
+        )}
       </TryItWrapper>
-      {tryItOpen && otherProps.tryItComponent({ operation, onClose: () => setTryItOpen(false)})}
-     </>
+      {tryItOpen && otherProps.tryItComponent({ operation, onClose: () => setTryItOpen(false) })}
+    </>
   );
 }
