@@ -38,7 +38,9 @@ const Button = styled.button`
 
 export function TryIt(props) {
   const { operation, ...otherProps } = props;
-  const [tryItOpen, setTryItOpen] = React.useState(props?.tryItOpen === operation.id || false);
+  const [tryItOpen, setTryItOpen] = React.useState(
+    props?.tryItOpen === operation?.operationId || false,
+  );
 
   if (!otherProps.tryItComponent) return <Endpoint operation={operation} />;
 
