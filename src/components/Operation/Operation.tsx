@@ -62,7 +62,7 @@ export class Operation extends React.Component<OperationProps> {
             </MiddlePanel>
             <DarkRightPanel>
               <TryIt {...otherProps} operation={operation} />
-              <RequestSamples operation={operation} />
+              <RequestSamples {...otherProps} operation={operation} />
               <ResponseSamples operation={operation} />
               <CallbackSamples callbacks={operation.callbacks} />
             </DarkRightPanel>
