@@ -20,6 +20,7 @@ export class RequestSamples extends React.Component<RequestSamplesProps> {
   operation: OperationModel;
 
   render() {
+    console.log('RequestSamples', this.props);
     const { operation, requestSample } = this.props;
     const samples = operation.codeSamples;
 
