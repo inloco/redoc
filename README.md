@@ -5,4 +5,7 @@ This forks add the features:
 
 
 These features are located at the `try-it` branch.
-Refer to the commit: b2d8e0f5..a9162532 to see the changes.
+Refer to this [commit](https://github.com/inloco/redoc/commit/e72ac21ac7b9de4318c80e844ec933a9e051809c) to see the changes.
+
+
+OBS: Before deploy a new version, please run: `yarn bundle`
