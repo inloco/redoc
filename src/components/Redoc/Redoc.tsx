@@ -17,6 +17,7 @@ import { StoreProvider } from '../StoreBuilder';
 
 export interface RedocProps {
   store: AppStore;
+  environmentSelector?: React.ReactNode;
 }
 
 export class Redoc extends React.Component<RedocProps> {
@@ -37,6 +38,7 @@ export class Redoc extends React.Component<RedocProps> {
       store: { spec, menu, options, search, marker },
     } = this.props;
     const store = this.props.store;
+    const environmentSelector = this.props.environmentSelector;
     return (
       <ThemeProvider theme={options.theme}>
         <StoreProvider value={store}>
@@ -57,9 +59,9 @@ export class Redoc extends React.Component<RedocProps> {
               </StickyResponsiveSidebar>
               <ApiContentWrap className="api-content">
                 <ApiInfo store={store} />
-                <ContentItems items={menu.items as any} />
+                <ContentItems {...this.props} items={menu.items as any} />
               </ApiContentWrap>
-              <BackgroundStub />
+              <BackgroundStub>{environmentSelector}</BackgroundStub>
             </RedocWrap>
           </OptionsProvider>
         </StoreProvider>

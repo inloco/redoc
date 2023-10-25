@@ -18,6 +18,7 @@ import { ResponsesList } from '../Responses/ResponsesList';
 import { ResponseSamples } from '../ResponseSamples/ResponseSamples';
 import { SecurityRequirements } from '../SecurityRequirement/SecurityRequirement';
 import { SECTION_ATTR } from '../../services';
+import { TryIt } from '../TryIt/TryIt';
 
 const Description = styled.div`
   margin-bottom: ${({ theme }) => theme.spacing.unit * 6}px;
@@ -27,7 +28,7 @@ export interface OperationProps {
   operation: OperationModel;
 }
 
-export const Operation = observer(({ operation }: OperationProps): JSX.Element => {
+export const Operation = observer(({ operation, ...otherProps }: OperationProps): JSX.Element => {
   const { name: summary, description, deprecated, externalDocs, isWebhook, httpVerb } = operation;
   const hasDescription = !!(description || externalDocs);
   const { showWebhookVerb } = React.useContext(OptionsContext);
@@ -62,6 +63,7 @@ export const Operation = observer(({ operation }: OperationProps): JSX.Element =
             <CallbacksList callbacks={operation.callbacks} />
           </MiddlePanel>
           <DarkRightPanel>
+            <TryIt {...otherProps} operation={operation} />
             {!options.pathInMiddlePanel && !isWebhook && <Endpoint operation={operation} />}
             <RequestSamples operation={operation} />
             <ResponseSamples operation={operation} />

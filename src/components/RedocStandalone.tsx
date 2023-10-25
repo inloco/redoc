@@ -15,12 +15,14 @@ export interface RedocStandaloneProps {
   specUrl?: string;
   options?: RedocRawOptions;
   onLoaded?: (e?: Error) => any;
+  tryItComponent?: React.FC;
+  environmentSelector?: React.ReactNode;
 }
 
 declare let __webpack_nonce__: string;
 
 export const RedocStandalone = function (props: RedocStandaloneProps) {
-  const { spec, specUrl, options = {}, onLoaded } = props;
+  const { spec, specUrl, options = {}, onLoaded, ...otherProps } = props;
   const hideLoading = argValueToBoolean(options.hideLoading, false);
 
   const normalizedOpts = new RedocNormalizedOptions(options);
@@ -42,7 +44,7 @@ export const RedocStandalone = function (props: RedocStandaloneProps) {
       >
         {({ loading, store }) =>
           !loading ? (
-            <Redoc store={store!} />
+            <Redoc {...otherProps} store={store!} />
           ) : hideLoading ? null : (
             <Loading color={normalizedOpts.theme.colors.primary.main} />
           )

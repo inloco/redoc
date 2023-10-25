@@ -10,6 +10,7 @@ import { l } from '../../services/Labels';
 
 export interface RequestSamplesProps {
   operation: OperationModel;
+  requestSample?: any;
 }
 
 @observer
@@ -19,7 +20,7 @@ export class RequestSamples extends React.Component<RequestSamplesProps> {
   operation: OperationModel;
 
   render() {
-    const { operation } = this.props;
+    const { operation, requestSample } = this.props;
     const samples = operation.codeSamples;
 
     const hasSamples = samples.length > 0;
@@ -27,6 +28,7 @@ export class RequestSamples extends React.Component<RequestSamplesProps> {
     return (
       (hasSamples && (
         <div>
+          {requestSample}
           <RightPanelHeader> {l('requestSamples')} </RightPanelHeader>
 
           <Tabs defaultIndex={0}>
